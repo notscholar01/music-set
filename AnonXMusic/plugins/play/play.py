@@ -53,6 +53,28 @@ async def play_commnd(
     url,
     fplay,
 ):
+    user_id = message.from_user.id
+    bot_info = await client.get_me()
+    bot_username = bot_info.username
+
+    try:
+        user_chat = await client.get_chat(user_id)
+        if user_chat.type == "private":
+            user_started = True
+        else:
+            user_started = False
+    except:
+        user_started = False 
+
+    if not user_started:
+        start_button = InlineKeyboardMarkup(
+            [[InlineKeyboardButton("Start Bot in PM", url=f"https://t.me/Shehzadi_MusicBot?start=start")]]
+        )
+        return await message.reply_text(
+            "To play music, you need to start the bot in PM first.",
+            reply_markup=start_button
+        )
+
     mystic = await message.reply_text(
         _["play_2"].format(channel) if channel else _["play_1"]
     )
