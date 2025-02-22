@@ -5,7 +5,6 @@ from pyrogram import filters
 from pyrogram.types import InlineKeyboardMarkup, InputMediaPhoto, Message
 from pytgcalls.exceptions import NoActiveGroupCall
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
-
 import config
 from AnonXMusic import Apple, Resso, SoundCloud, Spotify, Telegram, YouTube, app
 from AnonXMusic.core.call import Anony
@@ -59,26 +58,24 @@ async def play_commnd(
     bot_username = bot_info.username
 
     try:
-        user_chat = await client.get_chat(user_id)
-        if user_chat.type == "private":
-            user_started = True
-        else:
-            user_started = False
-    except:
-        user_started = False 
+        await client.send_message(user_id, "✅ You are verified! You can now use the bot in groups.")
+        user_started = True
+    except Exception as e:
+        user_started = False
 
     if not user_started:
         start_button = InlineKeyboardMarkup(
-            [[InlineKeyboardButton("Start Bot in PM", url=f"https://t.me/Shehzadi_MusicBot?start=start")]]
+            [[InlineKeyboardButton("Start Bot in PM", url=f"https://t.me/{bot_username}?start=start")]]
         )
         return await message.reply_text(
-            "To play music, you need to start the bot in PM first.",
+            "💦 To play music, start the bot in PM first!",
             reply_markup=start_button
         )
 
     mystic = await message.reply_text(
         _["play_2"].format(channel) if channel else _["play_1"]
     )
+
     plist_id = None
     slider = None
     plist_type = None
