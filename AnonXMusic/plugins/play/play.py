@@ -68,7 +68,7 @@ async def play_commnd(
             [[InlineKeyboardButton("Start Bot in PM", url=f"https://t.me/{bot_username}?start=start")]]
         )
         return await message.reply_text(
-            "💦 To play music, start the bot in PM first!",
+            "♪♡ To play music, start the bot in PM first!",
             reply_markup=start_button
         )
 
